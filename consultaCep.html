@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Consulta CEP</title>
+    <script src="http://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script type="text/javascript">
+        function consultarCep() {
+            $("#resultado").empty();
+            var cep = $("#cep").val();
+            var url = "https://viacep.com.br/ws/" + cep + "/json/";
+            $.getJSON(url, function(result) {
+                //alert(result.logradouro);
+                $("#resultado").append("<p>Rua: " + result.logradouro + "</p>");
+                $("#resultado").append("<p>Bairro: " + result.bairro + "</p>");
+                $("#resultado").append("<p>Cidade: " + result.localidade + "</p>");
+                $("#resultado").append("<p>Estado: " + result.uf + "</p>");
+            }).fail(function() {
+                alert('Falha ao consultar o CEP!');
+            });
+
+        }
+
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Consulta de CEP</h1>
+        <p>Digite o seu CEP:</p>
+        <div class="form-group">
+            <input type="text" class="form-control" id="cep" placeholder="CEP">
+            <input class="btn btn-default" type="button" value="OK" onclick="consultarCep()" />
+        </div>
+        <br />
+        <div class="panel panel-default">
+            <div class="panel-body" id="resultado"></div>
+        </div>
+
+    </div>
+</body>
+
+</html>

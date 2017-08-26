@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Consulta CNPJ</title>
+		<script src="http://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+		  		crossorigin="anonymous">
+		</script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<script type="text/javascript">
+			function consultarCnpj(){
+				var cnpj = $("#cnpj").val();
+				var url = "https://www.receitaws.com.br/v1/cnpj/"+cnpj;
+				$.getJSON(url, function(result){
+					//alert(result.logradouro);
+					console.log(result);
+					$("#resultado").empty();
+					$("#resultado").append("<p>Atividade Principal: "+result.atividade_principal[0].text+"</p>");
+					$("#resultado").append("<p>Nome: "+result.nome+"</p>");
+					$("#resultado").append("<p>Uf: "+result.uf+"</p>");
+					$("#resultado").append("<p>Telefone: "+result.telefone+"</p>");
+					$("#resultado").append("<p>Email: "+result.email+"</p>");
+					$("#resultado").append("<p>Atividades Secundarias: "+result.atividades_secundarias[0].text+"</p>");
+				});
+				//ADICIONAR EXTENÇÃO "CORS" PARA FUNCIONAR
+			}
+		</script>
+	</head>
+	<body>
+		<div class="container">
+			<h1>Consulta de CNPJ</h1>
+			<P>Digite o CNPJ:</P>
+			<div class="form-group">
+				<input type="text" class="form-control" id="cnpj" placeholder="CNPJ">
+				<input class="btn btn-default" type="button" value="OK" onclick="consultarCnpj()">
+			</div>
+
+			<div class="panel panel-default">
+				<div class="panel-body" id="resultado"></div>
+			</div>
+		</div>	
+	</body>
+</html>

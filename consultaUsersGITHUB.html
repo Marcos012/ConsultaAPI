@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Consulta CNPJ</title>
+		<script src="http://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+		  		crossorigin="anonymous">
+		</script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<script type="text/javascript">
+			function consultarGITHUB(){
+				$("#resultado").empty();
+				var user = $("#user").val();
+				var url = "https://api.github.com/users";
+				$.getJSON(url, function(result){
+					//alert(result.logradouro);
+					console.log(result);
+					$.each(result, function(i, item) {
+                    	$("#resultado").append('<p><strong>Loin: </strong>'+item.login+'</p>'+'<p><strong>Id: </strong>'+item.id+'</p>'+'<p><strong>URL: </strong>'+item.url+'</p>'+'<p><strong>Type: </strong>'+item.type+'</p>'+'<br/>');
+                	});
+
+                	//Outro jeito
+					/* $("#resultado").empty();
+					$("#resultado").append("<p>Loin: "+result[0].loin+"</p>");
+					$("#resultado").append("<p>id: "+result.id+"</p>");
+					$("#resultado").append("<p>URL: "+result.url+"</p>");
+					$("#resultado").append("<p>Tipo: "+result.type+"</p>");
+					$("#resultado").append("<p>Administrador? "+result.site_admin+"</p>"); */
+				});
+				//ADICIONAR EXTENÇÃO "CORS" PARA FUNCIONAR
+			}
+		</script>
+	</head>
+	<body>
+		<div class="container">
+			<h1>Consulta de Usuaios GITHUB</h1>
+			<P>Digite o usuario:</P>
+			<div class="form-group">
+				<input type="text" class="form-control" id="user" placeholder="user">
+				<input class="btn btn-default" type="button" value="OK" onclick="consultarGITHUB()">
+			</div>
+
+			<div class="panel panel-default">
+				<div class="panel-body" id="resultado"></div>
+			</div>
+		</div>	
+	</body>
+</html>
